@@ -3,101 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Door Lock</title>
+    <title>Delivery Box</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <span class="icon">🏠</span>
-            <h1>Manage Delivery Box</h1>
+    <div class="phone">
+        <!-- Page 1: Dashboard -->
+        <div class="page" id="page1">
+
+            <div class="page-header">
+                <br>
+                <br>
+                <br>
+                <h1>Dashboard</h1>
+                <p>Manage Box</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Recent Access -->
+                <div class="big-card" onclick="showPage('page2')">
+                    <div class="card-icon">✅</div>
+                    <h3>Recent Access</h3>
+                    <div class="mini-list">
+                        <div>Package <span>2m</span></div>
+                        <div>Food<span>15m</span></div>
+                    </div>
+                </div>
+
+                <!-- Generate OTP -->
+                <div class="big-card" onclick="generateOTP()">
+                    <div class="card-icon">🔑</div>
+                    <h3>Generate OTP</h3>
+                    <div class="otp-box" id="otpBox"></div>
+                </div>
+
+                <!-- Quick Actions Grid -->
+                <div class="icon-grid">
+                    <div class="icon-btn active">
+                        <div class="icon">📋</div>
+                        <span>History</span>
+                    </div>
+                    <div class="icon-btn">
+                        <div class="icon">⏱️</div>
+                        <span>Active</span>
+                    </div>
+                    <div class="icon-btn">
+                        <div class="icon">🔒</div>
+                        <span>Lockout</span>
+                    </div>
+                    <div class="icon-btn">
+                        <div class="icon">📷</div>
+                        <span>Photos</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-dots">
+                <span class="dot active"></span>
+                <span class="dot" onclick="showPage('page2')"></span>
+            </div>
         </div>
 
-        <!-- Main Grid -->
-        <div class="grid">
-            <!-- Recent Access Card -->
-            <div class="card">
-                <div class="card-icon">✅</div>
-                <h2>Recent Access</h2>
-                <div class="card-content">
-                    <div class="access-item">
-                        <span>John Doe</span>
-                        <span class="time">2 mins ago</span>
-                    </div>
-                    <div class="access-item">
-                        <span>Jane Smith</span>
-                        <span class="time">15 mins ago</span>
-                    </div>
-                    <div class="access-item">
-                        <span>Bob Wilson</span>
-                        <span class="time">1 hour ago</span>
-                    </div>
+        <!-- Page 2: Details -->
+        <div class="page hidden" id="page2">
+        
+            <div class="page-header">
+                <button class="back-btn" onclick="showPage('page1')">←</button>
+                <div>
+                    <br>
+                    <br>
+                    <br>
+                    <h1>Details</h1>
+                    <p>Access & Security</p>
                 </div>
             </div>
 
-            <!-- Generate OTP Card -->
-            <div class="card card-action" onclick="generateOTP()">
-                <div class="card-icon">🔑</div>
-                <h2>Generate OTP</h2>
-                <div class="otp-display" id="otpDisplay"></div>
-            </div>
-
-            <!-- Active OTPs Card -->
-            <div class="card">
-                <div class="card-icon">⏱️</div>
-                <h2>Active OTPs</h2>
-                <div class="card-content" id="activeOtpList">
-                    <div class="otp-item">
-                        <span class="code">1234</span>
-                        <span class="time">5 mins left</span>
-                    </div>
-                    <div class="otp-item">
-                        <span class="code">5678</span>
-                        <span class="time">12 mins left</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Past Opens Card -->
-            <div class="card">
-                <div class="card-icon">📋</div>
-                <h2>Past Opens</h2>
-                <div class="card-content">
-                    <div class="history-item">
-                        <div>
-                            <div>John Doe</div>
-                            <div class="time">OTP: 1234</div>
+            <div class="details-grid">
+                <!-- Active OTPs -->
+                <div class="detail-card">
+                    <h3>🔑 Active OTPs</h3>
+                    <div class="otp-list" id="activeOtps">
+                        <div class="otp-item">
+                            <span class="code">1234</span>
+                            <span class="expire">5m left</span>
                         </div>
-                        <span class="time">Today 2:30 PM</span>
-                    </div>
-                    <div class="history-item">
-                        <div>
-                            <div>Jane Smith</div>
-                            <div class="time">Card Access</div>
+                        <div class="otp-item">
+                            <span class="code">5678</span>
+                            <span class="expire">12m left</span>
                         </div>
-                        <span class="time">Today 11:45 AM</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- Lockout Card -->
-            <div class="card card-action" onclick="toggleLockout()">
-                <div class="card-icon">🔒</div>
-                <h2>Lockout</h2>
-                <p class="status" id="lockoutStatus">Normal</p>
-            </div>
-
-            <!-- Recent Photos Card -->
-            <div class="card">
-                <div class="card-icon">📷</div>
-                <h2>Recent Photos</h2>
-                <div class="photo-grid">
-                    <div class="photo">📸<span>2 mins</span></div>
-                    <div class="photo">📸<span>15 mins</span></div>
-                    <div class="photo">📸<span>1 hour</span></div>
-                    <div class="photo">📸<span>2 hours</span></div>
+                <!-- Past Opens -->
+                <div class="detail-card">
+                    <h3>📋 Past Opens</h3>
+                    <div class="history-list">
+                        <div class="history-row">
+                            <div>
+                                <div class="name">John Doe</div>
+                                <div class="method">OTP: 1234</div>
+                            </div>
+                            <div class="date">2:30 PM</div>
+                        </div>
+                        <div class="history-row">
+                            <div>
+                                <div class="name">Jane Smith</div>
+                                <div class="method">Card</div>
+                            </div>
+                            <div class="date">11:45 AM</div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Photos -->
+                <div class="detail-card">
+                    <h3>📷 Recent Photos</h3>
+                    <div class="photo-row">
+                        <div class="photo-box">📸<span>2m</span></div>
+                        <div class="photo-box">📸<span>15m</span></div>
+                        <div class="photo-box">📸<span>1h</span></div>
+                    </div>
+                </div>
+
+                <!-- Lockout -->
+                <div class="detail-card lockout-card" onclick="toggleLockout()">
+                    <h3>🔒 Lockout</h3>
+                    <div class="lockout-status" id="lockStatus">Normal</div>
+                </div>
+            </div>
+
+            <div class="nav-dots">
+                <span class="dot" onclick="showPage('page1')"></span>
+                <span class="dot active"></span>
             </div>
         </div>
     </div>
