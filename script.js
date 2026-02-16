@@ -1,78 +1,42 @@
-let currentTemp = 20;
-
-/**
- * Update the temperature display and circular progress indicator
- * @param {number} temp - The new temperature value
- */
-function updateTemperature(temp) {
-    // Clamp temperature between 10 and 35 degrees
-    currentTemp = Math.max(10, Math.min(35, temp));
-    document.querySelector('.temp-value').textContent = currentTemp + '°C';
+// Generate OTP
+function generateOTP() {
+    var otp = Math.floor(1000 + Math.random() * 9000);
     
-    // Update circle progress (10-35 range mapped to circle)
-    const percentage = (currentTemp - 10) / 25;
-    const circumference = 565.48;
-    const offset = circumference - (percentage * circumference);
-    document.getElementById('progressCircle').style.strokeDashoffset = offset;
+    var otpDisplay = document.getElementById('otpDisplay');
+    otpDisplay.textContent = otp;
+    otpDisplay.classList.add('show');
+    
+    setTimeout(function() {
+        otpDisplay.classList.remove('show');
+    }, 5000);
+    
+    addActiveOTP(otp);
 }
 
-/**
- * Increase temperature by 1 degree
- */
-function increaseTemp() {
-    updateTemperature(currentTemp + 1);
+// Add to active list
+function addActiveOTP(otp) {
+    var otpList = document.getElementById('activeOtpList');
+    
+    var otpItem = document.createElement('div');
+    otpItem.className = 'otp-item';
+    otpItem.innerHTML = '<span class="code">' + otp + '</span><span class="time">15 mins left</span>';
+    
+    otpList.insertBefore(otpItem, otpList.firstChild);
 }
 
-/**
- * Decrease temperature by 1 degree
- */
-function decreaseTemp() {
-    updateTemperature(currentTemp - 1);
+// Toggle lockout
+var isLockedOut = false;
+
+function toggleLockout() {
+    isLockedOut = !isLockedOut;
+    
+    var statusElement = document.getElementById('lockoutStatus');
+    
+    if (isLockedOut) {
+        statusElement.textContent = 'Locked';
+        statusElement.classList.add('locked');
+    } else {
+        statusElement.textContent = 'Normal';
+        statusElement.classList.remove('locked');
+    }
 }
-
-/**
- * Initialize all event listeners and animations
- */
-function initializeApp() {
-    // Room tabs functionality
-    document.querySelectorAll('.room-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-            document.querySelectorAll('.room-tab').forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-
-    // Device cards functionality
-    document.querySelectorAll('.device-card').forEach(card => {
-        card.addEventListener('click', function() {
-            this.classList.toggle('active');
-        });
-    });
-
-    // Control buttons functionality
-    document.querySelectorAll('.control-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-
-    // Bottom nav functionality
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', function() {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-
-    // Initialize temperature circle
-    updateTemperature(20);
-
-    // Stagger animations for device cards
-    document.querySelectorAll('.device-card').forEach((card, index) => {
-        card.style.animationDelay = `${0.1 + (index * 0.05)}s`;
-    });
-}
-
-// Initialize the app when DOM is fully loaded
-document.addEventListener('DOMContentLoaded', initializeApp);

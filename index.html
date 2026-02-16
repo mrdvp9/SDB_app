@@ -3,180 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Home Dashboard</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- External CSS -->
+    <title>Door Lock</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="app-container">
+    <div class="container">
         <!-- Header -->
         <div class="header">
-            <div class="user-info">
-                <div class="user-avatar">A</div>
-                <div>
-                    <div class="user-greeting">Welcome, Aron</div>
-                    <div class="user-name">Manage Your Smart Home</div>
-                </div>
-            </div>
-            <div class="header-icon">⚙️</div>
+            <span class="icon">🏠</span>
+            <h1>Manage Delivery Box</h1>
         </div>
 
-        <!-- Weather Card -->
-        <div class="main-card">
-            <div class="weather-display">
-                <div>
-                    <div class="weather-temp">23<span class="weather-unit">°C</span></div>
-                    <div class="weather-desc">Mostly Cloudy</div>
-                </div>
-                <div class="weather-icon">🌧️</div>
-            </div>
-
-            <!-- Room Tabs -->
-            <div class="room-tabs">
-                <button class="room-tab active">Living Room</button>
-                <button class="room-tab">Bedroom</button>
-                <button class="room-tab">Dining Room</button>
-                <button class="room-tab">Kitchen</button>
-            </div>
-
-            <!-- Device Grid -->
-            <div class="device-grid">
-                <div class="device-card large active">
-                    <div>
-                        <div class="device-icon">❄️</div>
-                        <div class="device-name">AC Unit</div>
-                        <div class="device-status">Turn on</div>
+        <!-- Main Grid -->
+        <div class="grid">
+            <!-- Recent Access Card -->
+            <div class="card">
+                <div class="card-icon">✅</div>
+                <h2>Recent Access</h2>
+                <div class="card-content">
+                    <div class="access-item">
+                        <span>John Doe</span>
+                        <span class="time">2 mins ago</span>
                     </div>
-                    <div class="device-value">9</div>
-                </div>
-
-                <div class="device-card">
-                    <div class="device-icon">💡</div>
-                    <div class="device-name">Light</div>
-                    <div class="device-status">200 W</div>
-                </div>
-
-                <div class="device-card">
-                    <div class="device-icon">📺</div>
-                    <div class="device-name">Smart tv</div>
-                    <div class="device-status">On</div>
-                </div>
-
-                <div class="device-card">
-                    <div class="device-icon">📶</div>
-                    <div class="device-name">Wi-Fi</div>
-                    <div class="device-status">Connected</div>
-                </div>
-
-                <div class="device-card">
-                    <div class="device-icon">🎵</div>
-                    <div class="device-name">Hue</div>
-                    <div class="device-status">Playing</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Climate Control Card -->
-        <div class="climate-card">
-            <div class="climate-header">
-                <div>
-                    <div class="climate-title">Air Conditioner</div>
-                    <div class="climate-subtitle">Living Room • Climate</div>
-                </div>
-                <div class="nav-buttons">
-                    <button class="nav-btn">←</button>
-                    <button class="nav-btn">⚙️</button>
-                </div>
-            </div>
-
-            <!-- Control Buttons -->
-            <div class="control-buttons">
-                <button class="control-btn">
-                    <span>💨</span>
-                    <span class="control-label">Air Speed</span>
-                </button>
-                <button class="control-btn">
-                    <span>⏱️</span>
-                    <span class="control-label">Timer</span>
-                </button>
-                <button class="control-btn active">
-                    <span>❄️</span>
-                    <span class="control-label">Cooling</span>
-                </button>
-                <button class="control-btn">
-                    <span>☀️</span>
-                    <span class="control-label">Heat</span>
-                </button>
-            </div>
-
-            <!-- Temperature Circle -->
-            <div class="temp-circle-container">
-                <div class="temp-circle">
-                    <svg width="220" height="220" class="circle-svg">
-                        <circle cx="110" cy="110" r="90" class="circle-bg"/>
-                        <circle cx="110" cy="110" r="90" class="circle-progress" id="progressCircle"/>
-                    </svg>
-                    <div class="temp-display">
-                        <div class="temp-value">20°C</div>
-                        <div class="temp-label">Current</div>
+                    <div class="access-item">
+                        <span>Jane Smith</span>
+                        <span class="time">15 mins ago</span>
                     </div>
-                    <div class="temp-controls left">
-                        <button class="temp-btn" onclick="decreaseTemp()">−</button>
-                    </div>
-                    <div class="temp-controls right">
-                        <button class="temp-btn" onclick="increaseTemp()">+</button>
+                    <div class="access-item">
+                        <span>Bob Wilson</span>
+                        <span class="time">1 hour ago</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Stats Grid -->
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-icon">🌡️</div>
-                    <div class="stat-info">
-                        <div class="stat-value">10°C</div>
-                        <div class="stat-label">Temp.</div>
+            <!-- Generate OTP Card -->
+            <div class="card card-action" onclick="generateOTP()">
+                <div class="card-icon">🔑</div>
+                <h2>Generate OTP</h2>
+                <div class="otp-display" id="otpDisplay"></div>
+            </div>
+
+            <!-- Active OTPs Card -->
+            <div class="card">
+                <div class="card-icon">⏱️</div>
+                <h2>Active OTPs</h2>
+                <div class="card-content" id="activeOtpList">
+                    <div class="otp-item">
+                        <span class="code">1234</span>
+                        <span class="time">5 mins left</span>
                     </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon active">⚡</div>
-                    <div class="stat-info">
-                        <div class="stat-value">32%</div>
-                        <div class="stat-label">Humidity</div>
+                    <div class="otp-item">
+                        <span class="code">5678</span>
+                        <span class="time">12 mins left</span>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Spacing for bottom nav -->
-        <div style="height: 80px;"></div>
-    </div>
+            <!-- Past Opens Card -->
+            <div class="card">
+                <div class="card-icon">📋</div>
+                <h2>Past Opens</h2>
+                <div class="card-content">
+                    <div class="history-item">
+                        <div>
+                            <div>John Doe</div>
+                            <div class="time">OTP: 1234</div>
+                        </div>
+                        <span class="time">Today 2:30 PM</span>
+                    </div>
+                    <div class="history-item">
+                        <div>
+                            <div>Jane Smith</div>
+                            <div class="time">Card Access</div>
+                        </div>
+                        <span class="time">Today 11:45 AM</span>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <div class="nav-item active">
-            <div class="nav-item-icon">🏠</div>
-            <div class="nav-item-label">Home</div>
-        </div>
-        <div class="nav-item">
-            <div class="nav-item-icon">📊</div>
-            <div class="nav-item-label">Stats</div>
-        </div>
-        <div class="nav-item">
-            <div class="nav-item-icon">⚙️</div>
-            <div class="nav-item-label">Settings</div>
-        </div>
-        <div class="nav-item">
-            <div class="nav-item-icon">👤</div>
-            <div class="nav-item-label">Profile</div>
+            <!-- Lockout Card -->
+            <div class="card card-action" onclick="toggleLockout()">
+                <div class="card-icon">🔒</div>
+                <h2>Lockout</h2>
+                <p class="status" id="lockoutStatus">Normal</p>
+            </div>
+
+            <!-- Recent Photos Card -->
+            <div class="card">
+                <div class="card-icon">📷</div>
+                <h2>Recent Photos</h2>
+                <div class="photo-grid">
+                    <div class="photo">📸<span>2 mins</span></div>
+                    <div class="photo">📸<span>15 mins</span></div>
+                    <div class="photo">📸<span>1 hour</span></div>
+                    <div class="photo">📸<span>2 hours</span></div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- External JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
